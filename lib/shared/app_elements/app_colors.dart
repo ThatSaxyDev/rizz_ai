@@ -5,8 +5,11 @@ abstract class AppColors {
   static const primaryBlue = Color(0xFF1552F0);
   static const primaryRed = Color(0xFFBD0000);
   static const darkBlue = Color(0xFF062165);
+  static const lightBlue = Color(0xFF80D0C7);
+  static const dBlue = Color(0xFF0093E9);
+  
   static const midBlue = Color(0xFF618AF5);
-  static const lightBlue = Color(0xFFF5F8FE);
+  // static const lightBlue = Color(0xFFF5F8FE);
   static const green = Color(0xFF3F8634);
   static const purple = Color(0xFFB333E9);
   static const greyPurple = Color(0xFFEABFFA);

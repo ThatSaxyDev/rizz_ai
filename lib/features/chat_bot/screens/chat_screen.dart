@@ -1,25 +1,30 @@
-import 'dart:ui';
-
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_chatgpt_api/flutter_chatgpt_api.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
+import 'package:unicons/unicons.dart';
+
 import 'package:rizz/features/chat_bot/models/chat_model.dart';
 import 'package:rizz/features/chat_bot/widgets/chat_message_widget.dart';
 import 'package:rizz/shared/app_elements/app_colors.dart';
 import 'package:rizz/shared/app_elements/app_texts.dart';
+import 'package:rizz/shared/utils/alert.dart';
 import 'package:rizz/shared/utils/constants.dart';
 import 'package:rizz/shared/utils/spacer.dart';
 import 'package:rizz/test/image_generation.dart/test_services.dart';
-import 'package:rizz/shared/utils/alert.dart';
-import 'package:unicons/unicons.dart';
 
 const backgroundColor = Color(0xff343541);
 const botBackgroundColor = Color(0xff444654);
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key});
+  final void Function()? onTapDrawer;
+  const ChatScreen({
+    Key? key,
+    this.onTapDrawer,
+  }) : super(key: key);
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -74,45 +79,9 @@ class _ChatScreenState extends State<ChatScreen> {
           key: _formKey,
           child: Stack(
             children: [
-              // CustomScrollView(
-              //   slivers: [
-              //     // const SliverAppBar(
-              //     //   floating: true,
-              //     //   centerTitle: true,
-              //     //   title: Icon(UniconsLine.bolt),
-              //     //   backgroundColor: Colors.transparent,
-              //     // ),
-              //     SliverList(
-              //       delegate: SliverChildListDelegate(
-              //         [
-              //           // List of widgets to be displayed in the list view
-              //           SizedBox(
-              //             height: height(context),
-              //             child: _buildList(),
-              //           )
-              //         ],
-              //       ),
-              //     ),
-              //     // SliverFillRemaining(
-              //     //   child: _buildList(),
-              //     // ),
-              //   ],
-              // ),
-
               // messages
               SizedBox(
                 child: _buildList(),
-              ),
-
-              // loading widget
-              Visibility(
-                visible: isLoading,
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
-                  ),
-                ),
               ),
 
               // bottom gradient
@@ -163,18 +132,25 @@ class _ChatScreenState extends State<ChatScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          SimpleHiddenDrawerController.of(context).toggle();
+                        },
                         child: Icon(
                           UniconsLine.list_ui_alt,
                           color: AppColors.neutralWhite,
+                          size: 30.sp,
                         ),
                       ),
                       CircleAvatar(
-                        radius: 20.r,
+                        radius: 30.r,
                         backgroundColor: AppColors.neutralWhite,
-                        child: Icon(
-                          UniconsLine.bolt,
-                          color: AppColors.black,
+                        child: CircleAvatar(
+                          radius: 27.r,
+                          backgroundColor: AppColors.black,
+                          child: const Icon(
+                            UniconsLine.bolt,
+                            color: AppColors.neutralWhite,
+                          ),
                         ),
                       ),
                       GestureDetector(
@@ -182,6 +158,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         child: Icon(
                           UniconsLine.cog,
                           color: AppColors.neutralWhite,
+                          size: 30.sp,
                         ),
                       ),
                     ],
@@ -196,19 +173,22 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget _buildSubmit() {
-    return isLoading
-        ? SizedBox(
-            height: double.infinity,
-            width: 60.w,
-            child: CircularProgressIndicator(),
-          )
-        : Container(
-            height: double.infinity,
-            width: 60.w,
-            decoration: BoxDecoration(
-                color: AppColors.grey3,
-                borderRadius: BorderRadius.circular(15.r)),
-            child: IconButton(
+    return Container(
+      height: double.infinity,
+      width: 60.w,
+      decoration: BoxDecoration(
+          color: AppColors.grey3, borderRadius: BorderRadius.circular(15.r)),
+      child: isLoading
+          ? Center(
+              child: SizedBox(
+                height: 30.h,
+                width: 30.w,
+                child: CircularProgressIndicator(
+                  color: AppColors.grey4,
+                ),
+              ),
+            )
+          : IconButton(
               icon: const Icon(
                 Icons.send_rounded,
                 color: AppColors.grey4,
@@ -249,7 +229,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 }
               },
             ),
-          );
+    );
   }
 
   Widget _buildInput() {

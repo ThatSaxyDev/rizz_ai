@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
 import 'package:rizz/shared/utils/test_button.dart';
 import 'package:rizz/test/image_generation.dart/test_services.dart';
 import 'package:rizz/shared/utils/text_input.dart';
-
+import 'package:unicons/unicons.dart';
 
 class TestScreen extends StatefulWidget {
   const TestScreen({super.key});
@@ -37,6 +38,14 @@ class _TestScreenState extends State<TestScreen> {
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width * 0.9;
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(UniconsLine.list_ui_alt),
+          onPressed: () {
+            SimpleHiddenDrawerController.of(context).toggle();
+          },
+        ),
+      ),
       body: Padding(
         padding: EdgeInsets.all(20.w),
         child: Column(
@@ -44,9 +53,9 @@ class _TestScreenState extends State<TestScreen> {
           children: [
             imageUrl == ''
                 ? SizedBox(
-                  height: w,
-                  child: Text('Describe your image'),
-                )
+                    height: w,
+                    child: Text('Describe your image'),
+                  )
                 : Container(
                     height: w,
                     width: w,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rizz/features/chat_bot/screens/chat_screen.dart';
+import 'package:rizz/features/hidden_drawer/hidden_drawer.dart';
 import 'package:rizz/test/image_generation.dart/test_screen.dart';
 import 'package:rizz/test/summary/summary_screen.dart';
 
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: const ChatScreen(),
+          home: ExampleCustomMenu(),
         );
       }
     );

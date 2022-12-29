@@ -42,6 +42,8 @@ dependencies:
   flutter_chatgpt_api: ^1.1.0
   animated_text_kit: ^4.2.2
   unicons: ^2.1.0
+  google_fonts: ^3.0.1
+  hidden_drawer_menu: ^3.0.1
 
 dev_dependencies:
   flutter_test:
