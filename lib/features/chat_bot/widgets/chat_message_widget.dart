@@ -20,7 +20,7 @@ class ChatMessageWidget extends StatelessWidget {
           : Alignment.centerRight,
       child: Container(
         margin: EdgeInsets.only(
-          top: 30.h,
+          top: 10.h,
           right: chatType == ChatType.bot ? 50.w : 0,
           left: chatType == ChatType.bot ? 0 : 50.w,
         ),

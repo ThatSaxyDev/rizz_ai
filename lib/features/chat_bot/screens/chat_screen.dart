@@ -9,9 +9,11 @@ import 'package:rizz/features/chat_bot/models/chat_model.dart';
 import 'package:rizz/features/chat_bot/widgets/chat_message_widget.dart';
 import 'package:rizz/shared/app_elements/app_colors.dart';
 import 'package:rizz/shared/app_elements/app_texts.dart';
+import 'package:rizz/shared/utils/constants.dart';
 import 'package:rizz/shared/utils/spacer.dart';
 import 'package:rizz/test/image_generation.dart/test_services.dart';
 import 'package:rizz/shared/utils/alert.dart';
+import 'package:unicons/unicons.dart';
 
 const backgroundColor = Color(0xff343541);
 const botBackgroundColor = Color(0xff444654);
@@ -27,30 +29,30 @@ class _ChatScreenState extends State<ChatScreen> {
   final _textController = TextEditingController();
   final _scrollController = ScrollController();
   final List<ChatText> _messages = [
-    ChatText(text: 'Hi, I\'m your favourite chat bot', chatType: ChatType.bot),
-    ChatText(
-        text:
-            'Hi, I\'m your favourite chat bot Hi, I\'m your favourite chat bot Hi, I\'m your favourite chat bot Hi, I\'m your favourite chat bot',
-        chatType: ChatType.user),
-    ChatText(text: 'Hi, I\'m your favourite chat bot', chatType: ChatType.bot),
-    ChatText(text: AppTexts.onboardingDummy, chatType: ChatType.user),
-    ChatText(text: AppTexts.onboardingDummy, chatType: ChatType.bot),
-    ChatText(
-        text:
-            'Hi, I\'m your favourite chat bot Hi, I\'m your favourite chat bot Hi, I\'m your favourite chat bot Hi, I\'m your favourite chat bot',
-        chatType: ChatType.user),
-    ChatText(text: 'Hi, I\'m your favourite chat bot', chatType: ChatType.bot),
-    ChatText(
-        text:
-            'Hi, I\'m your favourite chat bot Hi, I\'m your favourite chat bot Hi, I\'m your favourite chat bot Hi, I\'m your favourite chat bot',
-        chatType: ChatType.user),
-    ChatText(text: 'Hi, I\'m your favourite chat bot', chatType: ChatType.bot),
-    ChatText(text: AppTexts.onboardingDummy, chatType: ChatType.user),
-    ChatText(text: AppTexts.onboardingDummy, chatType: ChatType.bot),
-    ChatText(
-        text:
-            'Hi, I\'m your favourite chat bot Hi, I\'m your favourite chat bot Hi, I\'m your favourite chat bot Hi, I\'m your favourite chat bot',
-        chatType: ChatType.user),
+    ChatText(text: AppTexts.welcome, chatType: ChatType.bot),
+    // ChatText(
+    //     text:
+    //         'Hi, I\'m your favourite chat bot Hi, I\'m your favourite chat bot Hi, I\'m your favourite chat bot Hi, I\'m your favourite chat bot',
+    //     chatType: ChatType.user),
+    // ChatText(text: 'Hi, I\'m your favourite chat bot', chatType: ChatType.bot),
+    // ChatText(text: AppTexts.welcome, chatType: ChatType.user),
+    // ChatText(text: AppTexts.welcome, chatType: ChatType.bot),
+    // ChatText(
+    //     text:
+    //         'Hi, I\'m your favourite chat bot Hi, I\'m your favourite chat bot Hi, I\'m your favourite chat bot Hi, I\'m your favourite chat bot',
+    //     chatType: ChatType.user),
+    // ChatText(text: 'Hi, I\'m your favourite chat bot', chatType: ChatType.bot),
+    // ChatText(
+    //     text:
+    //         'Hi, I\'m your favourite chat bot Hi, I\'m your favourite chat bot Hi, I\'m your favourite chat bot Hi, I\'m your favourite chat bot',
+    //     chatType: ChatType.user),
+    // ChatText(text: 'Hi, I\'m your favourite chat bot', chatType: ChatType.bot),
+    // ChatText(text: AppTexts.welcome, chatType: ChatType.user),
+    // ChatText(text: AppTexts.welcome, chatType: ChatType.bot),
+    // ChatText(
+    //     text:
+    //         'Hi, I\'m your favourite chat bot Hi, I\'m your favourite chat bot Hi, I\'m your favourite chat bot Hi, I\'m your favourite chat bot',
+    //     chatType: ChatType.user),
   ];
   final TestServices _testServices = TestServices();
   late bool isLoading;
@@ -72,6 +74,31 @@ class _ChatScreenState extends State<ChatScreen> {
           key: _formKey,
           child: Stack(
             children: [
+              // CustomScrollView(
+              //   slivers: [
+              //     // const SliverAppBar(
+              //     //   floating: true,
+              //     //   centerTitle: true,
+              //     //   title: Icon(UniconsLine.bolt),
+              //     //   backgroundColor: Colors.transparent,
+              //     // ),
+              //     SliverList(
+              //       delegate: SliverChildListDelegate(
+              //         [
+              //           // List of widgets to be displayed in the list view
+              //           SizedBox(
+              //             height: height(context),
+              //             child: _buildList(),
+              //           )
+              //         ],
+              //       ),
+              //     ),
+              //     // SliverFillRemaining(
+              //     //   child: _buildList(),
+              //     // ),
+              //   ],
+              // ),
+
               // messages
               SizedBox(
                 child: _buildList(),
@@ -125,6 +152,42 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                 ),
               ),
+
+              // pseudo appBar
+              Align(
+                alignment: Alignment.topCenter,
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 150.h,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () {},
+                        child: Icon(
+                          UniconsLine.list_ui_alt,
+                          color: AppColors.neutralWhite,
+                        ),
+                      ),
+                      CircleAvatar(
+                        radius: 20.r,
+                        backgroundColor: AppColors.neutralWhite,
+                        child: Icon(
+                          UniconsLine.bolt,
+                          color: AppColors.black,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Icon(
+                          UniconsLine.cog,
+                          color: AppColors.neutralWhite,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
             ],
           ),
         ),
@@ -133,55 +196,60 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget _buildSubmit() {
-    return Visibility(
-      visible: !isLoading || _textController.text.isNotEmpty,
-      child: Container(
-        height: double.infinity,
-        width: 60.w,
-        color: AppColors.grey3,
-        child: IconButton(
-          icon: const Icon(
-            Icons.send_rounded,
-            color: AppColors.grey4,
-          ),
-          onPressed: () async {
-            if (_formKey.currentState!.validate()) {
-              setState(
-                () {
-                  _messages.add(
-                    ChatText(
-                      text: _textController.text,
-                      chatType: ChatType.user,
-                    ),
+    return isLoading
+        ? SizedBox(
+            height: double.infinity,
+            width: 60.w,
+            child: CircularProgressIndicator(),
+          )
+        : Container(
+            height: double.infinity,
+            width: 60.w,
+            decoration: BoxDecoration(
+                color: AppColors.grey3,
+                borderRadius: BorderRadius.circular(15.r)),
+            child: IconButton(
+              icon: const Icon(
+                Icons.send_rounded,
+                color: AppColors.grey4,
+              ),
+              onPressed: () async {
+                if (_formKey.currentState!.validate()) {
+                  setState(
+                    () {
+                      _messages.add(
+                        ChatText(
+                          text: _textController.text,
+                          chatType: ChatType.user,
+                        ),
+                      );
+                      isLoading = true;
+                    },
                   );
-                  isLoading = true;
-                },
-              );
-              var input = _textController.text;
-              _textController.clear();
-              Future.delayed(const Duration(milliseconds: 50))
-                  .then((_) => _scrollDown());
-              var newMessage = await _testServices.summarizeText(
-                context: context,
-                text: input,
-              );
-              setState(() {
-                isLoading = false;
-                _messages.add(
-                  ChatText(
-                    text: newMessage,
-                    chatType: ChatType.bot,
-                  ),
-                );
-              });
-              _textController.clear();
-              Future.delayed(const Duration(milliseconds: 50))
-                  .then((_) => _scrollDown());
-            }
-          },
-        ),
-      ),
-    );
+                  var input = _textController.text;
+                  _textController.clear();
+                  Future.delayed(const Duration(milliseconds: 50))
+                      .then((_) => _scrollDown());
+                  var newMessage = await _testServices.summarizeText(
+                    context: context,
+                    text: input,
+                  );
+                  setState(() {
+                    isLoading = false;
+                    _messages.add(
+                      ChatText(
+                        text: newMessage,
+                        chatType: ChatType.bot,
+                      ),
+                    );
+                  });
+                  _textController.clear();
+                  Future.delayed(const Duration(milliseconds: 50))
+                      .then((_) => _scrollDown());
+                }
+              },
+            ),
+          );
   }
 
   Widget _buildInput() {
@@ -232,6 +300,10 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Widget _buildList() {
     return ListView.builder(
+      padding: EdgeInsets.only(
+        top: 130.h,
+        bottom: 100,
+      ),
       controller: _scrollController,
       itemCount: _messages.length,
       itemBuilder: (context, index) {
