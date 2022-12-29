@@ -20,7 +20,7 @@ class ChatMessageWidget extends StatelessWidget {
           : Alignment.centerRight,
       child: Container(
         margin: EdgeInsets.only(
-          top: 10.h,
+          top: 30.h,
           right: chatType == ChatType.bot ? 50.w : 0,
           left: chatType == ChatType.bot ? 0 : 50.w,
         ),
@@ -30,12 +30,12 @@ class ChatMessageWidget extends StatelessWidget {
                 ? AppColors.grey01
                 : AppColors.darkerPurple,
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.r),
-              topRight: Radius.circular(20.r),
+              topLeft: Radius.circular(30.r),
+              topRight: Radius.circular(30.r),
               bottomLeft:
-                  Radius.circular(chatType == ChatType.bot ? 5.r : 20.r),
+                  Radius.circular(chatType == ChatType.bot ? 5.r : 30.r),
               bottomRight:
-                  Radius.circular(chatType == ChatType.bot ? 20.r : 5.r),
+                  Radius.circular(chatType == ChatType.bot ? 30.r : 5.r),
             )),
         child: chatType == ChatType.bot
             ? GestureDetector(

@@ -72,9 +72,12 @@ class _ChatScreenState extends State<ChatScreen> {
           key: _formKey,
           child: Stack(
             children: [
+              // messages
               SizedBox(
                 child: _buildList(),
               ),
+
+              // loading widget
               Visibility(
                 visible: isLoading,
                 child: const Padding(
@@ -84,6 +87,8 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                 ),
               ),
+
+              // bottom gradient
               Positioned(
                 left: 0,
                 right: 0,
@@ -103,6 +108,8 @@ class _ChatScreenState extends State<ChatScreen> {
                   child: const Spc(),
                 ),
               ),
+
+              // text input and submit
               Positioned(
                 left: 0,
                 right: 0,
